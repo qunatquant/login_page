@@ -12,6 +12,8 @@ services:
     # Make PostgreSQL only accessible within the Docker network
     expose:
       - "5432"
+    networks:
+      - app-network
 
   backend:
     build: ./server
@@ -22,7 +24,12 @@ services:
     environment:
       - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/login_db
       - SECRET_KEY=your_secure_secret_key
+      # Explicitly tell FastAPI where it's running
+      - BACKEND_HOST=0.0.0.0
+      - BACKEND_PORT=8000
     restart: always
+    networks:
+      - app-network
 
   frontend:
     build: ./client
@@ -33,6 +40,12 @@ services:
     environment:
       - REACT_APP_API_URL=http://18.218.119.92:8000
     restart: always
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
 
 volumes:
   postgres_data: 

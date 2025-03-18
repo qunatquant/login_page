@@ -8,7 +8,9 @@ function App() {
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
 
-  const url_backend = process.env.REACT_APP_API_URL || 'http://localhost:8000';
+  const url_backend = 'http://18.218.119.92:8000';
+
+  console.log("API URL:", process.env.REACT_APP_API_URL);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -47,13 +49,16 @@ function App() {
       // Register logic
       try {
         console.log("Attempting to register:", { username, email, password });
+        console.log("API endpoint being used:", `${url_backend}/register`);
         
         const response = await fetch(`${url_backend}/register`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
+            'Origin': window.location.origin,
           },
+          credentials: 'same-origin',
           body: JSON.stringify({
             username,
             email,
