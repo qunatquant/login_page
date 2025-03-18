@@ -7,10 +7,8 @@ function App() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userData, setUserData] = useState(null);
 
-  const url_backend = 'http://localhost:8000';
+  const url_backend = process.env.REACT_APP_API_URL || 'http://localhost:8000';
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -89,35 +87,6 @@ function App() {
         setMessage('Error connecting to server: ' + error.message);
       }
     }
-  };
-
-  const fetchUserData = async (token) => {
-    try {
-      const response = await fetch(`${url_backend}/users/me`, {
-        method: 'GET',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
-      });
-      
-      const data = await response.json();
-      
-      if (response.ok) {
-        setUserData(data);
-      }
-    } catch (error) {
-      console.error('Error fetching user data:', error);
-    }
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    setIsLoggedIn(false);
-    setUserData(null);
-    setUsername('');
-    setPassword('');
-    setEmail('');
-    setMessage('');
   };
 
   return (
