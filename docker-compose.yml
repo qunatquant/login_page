@@ -9,8 +9,9 @@ services:
       POSTGRES_DB: login_db
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
+    # Make PostgreSQL only accessible within the Docker network
+    expose:
+      - "5432"
 
   backend:
     build: ./server
@@ -29,6 +30,8 @@ services:
       - "80:80"
     depends_on:
       - backend
+    environment:
+      - REACT_APP_API_URL=http://18.218.119.92:8000
     restart: always
 
 volumes:
