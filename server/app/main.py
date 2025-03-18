@@ -22,7 +22,13 @@ app = FastAPI()
 # Configure CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3002", "http://18.218.119.92", "http://18.218.119.92:80"],  # Add your EC2 IP
+    allow_origins=[
+        "http://localhost:3002",
+        "http://18.218.119.92", 
+        "http://18.218.119.92:80",
+        "http://login.quantx.shop",
+        "http://login.quantx.shop:80"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

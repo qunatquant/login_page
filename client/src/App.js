@@ -8,7 +8,7 @@ function App() {
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
 
-  const url_backend = 'http://18.218.119.92:8000';
+  const url_backend = 'http://login.quantx.shop:8000';
 
   console.log("API URL:", process.env.REACT_APP_API_URL);
 

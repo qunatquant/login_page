@@ -38,7 +38,7 @@ services:
     depends_on:
       - backend
     environment:
-      - REACT_APP_API_URL=http://18.218.119.92:8000
+      - REACT_APP_API_URL=http://login.quantx.shop:8000
     restart: always
     networks:
       - app-network
